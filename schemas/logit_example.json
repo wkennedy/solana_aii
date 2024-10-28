@@ -1,0 +1,25 @@
+{
+  "input": {
+    "input_id": "input_12345",
+    "input_data": "The movie was fantastic!",
+    "timestamp": "2024-10-29T10:00:00Z",
+    "source": "customer_feedback"
+  },
+  "model_metadata": {
+    "model_id": "model_v1.3",
+    "version": "1.3.0",
+    "model_type": "sentiment_classifier",
+    "environment": "production"
+  },
+  "logits": {
+    "class_names": ["Negative", "Neutral", "Positive"],
+    "values": [-2.3, 0.5, 3.1],
+    "predicted_class": "Positive",
+    "confidence_score": 0.86
+  },
+  "verification_metrics": {
+    "cosine_similarity_score": 0.95,
+    "drift_score": 0.02,
+    "threshold_violation_flag": false
+  }
+}

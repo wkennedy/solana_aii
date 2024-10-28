@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LogitDataModel",
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "input_id": { "type": "string" },
+        "input_data": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" }
+      },
+      "required": ["input_id", "input_data", "timestamp", "source"]
+    },
+    "model_metadata": {
+      "type": "object",
+      "properties": {
+        "model_id": { "type": "string" },
+        "version": { "type": "string" },
+        "model_type": { "type": "string" },
+        "environment": { "type": "string", "enum": ["production", "staging", "development"] }
+      },
+      "required": ["model_id", "version", "model_type", "environment"]
+    },
+    "logits": {
+      "type": "object",
+      "properties": {
+        "class_names": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "values": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 1
+        },
+        "predicted_class": { "type": "string" },
+        "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["class_names", "values", "predicted_class"]
+    },
+    "verification_metrics": {
+      "type": "object",
+      "properties": {
+        "cosine_similarity_score": { "type": "number", "minimum": -1, "maximum": 1 },
+        "drift_score": { "type": "number", "minimum": 0 },
+        "threshold_violation_flag": { "type": "boolean" }
+      },
+      "required": ["cosine_similarity_score", "drift_score", "threshold_violation_flag"]
+    }
+  },
+  "required": ["input", "model_metadata", "logits", "verification_metrics"]
+}

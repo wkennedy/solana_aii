@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI Model Logits Schema",
+  "description": "Schema for representing and verifying AI model logits output during inference",
+  "type": "object",
+  "required": ["model_id", "timestamp", "sequence_length", "vocabulary_size", "logits", "metadata"],
+  "properties": {
+    "model_id": {
+      "type": "string",
+      "description": "Unique identifier for the AI model"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the logits were generated"
+    },
+    "sequence_length": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Length of the input sequence"
+    },
+    "vocabulary_size": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Size of the model's vocabulary"
+    },
+    "logits": {
+      "type": "object",
+      "required": ["values", "shape"],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "description": "Raw logit value before softmax"
+            }
+          },
+          "description": "2D array of logits [sequence_length x vocabulary_size]"
+        },
+        "shape": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "description": "Shape of the logits array [sequence_length, vocabulary_size]"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["temperature", "top_k", "top_p"],
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Sampling temperature used during inference"
+        },
+        "top_k": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Top-k sampling parameter"
+        },
+        "top_p": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Top-p (nucleus) sampling parameter"
+        },
+        "input_text": {
+          "type": "string",
+          "description": "Original input text that generated these logits"
+        },
+        "token_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": "Token IDs corresponding to the input sequence"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "description": "Verification metadata",
+      "required": ["hash_algorithm", "hash_input_fields", "hash"],
+      "properties": {
+        "hash_algorithm": {
+          "type": "string",
+          "enum": ["sha256", "sha384", "sha512"],
+          "description": "Algorithm used for hash calculation"
+        },
+        "hash_input_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of field paths that were included in hash calculation, in order"
+        },
+        "hash": {
+          "type": "string",
+          "description": "Hash of the concatenated fields specified in hash_input_fields"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Digital signature of the hash"
+        },
+        "certificate": {
+          "type": "string",
+          "description": "Certificate used for signing the data"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "model_id": "gpt-example-v1",
+  "timestamp": "2024-10-29T14:23:35.123Z",
+  "sequence_length": 3,
+  "vocabulary_size": 5,
+  "logits": {
+    "values": [
+      [2.1, -0.3, 1.5, 0.8, -1.2],
+      [0.5, 2.8, -0.4, 1.1, 0.9],
+      [-0.2, 1.7, 2.3, -0.8, 0.4]
+    ],
+    "shape": [3, 5]
+  },
+  "metadata": {
+    "temperature": 0.7,
+    "top_k": 50,
+    "top_p": 0.9,
+    "input_text": "Hello world!",
+    "token_ids": [1234, 5678, 9012]
+  },
+  "verification": {
+    "hash_algorithm": "sha256",
+    "hash_input_fields": [
+      "model_id",
+      "logits.values",
+      "metadata.input_text",
+      "metadata.token_ids"
+    ],
+    "hash": "sha256:6bc3ab6f8bc38cbca30f8e76dacd0aecdbfcaf655cb958aca726692be208af77",
+    "signature": "MEUCIQCLYPb2zIyqvwY/bZs9yhD5I9ZHIrgT+dCdQZfoFwQQKwIgPal5JqPVWQWo0Wo0G5YLxnlWOkm/oPIdC2JwiDtcw8Q=",
+    "certificate": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Vo8..."
+  }
+}
